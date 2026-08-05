@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FINELLY LAB | 시네마틱 영상 프로덕션</title>
+    <title>FineEli Lab | 시네마틱 영상 프로덕션</title>
+    <!-- Google Fonts & FontAwesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&family=Montserrat:wght@500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -43,24 +44,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 8%;
+            padding: 15px 8%;
             background: rgba(11, 12, 16, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .logo {
-            font-family: var(--font-en);
-            font-size: 1.4rem;
-            font-weight: 900;
-            color: var(--white);
-            letter-spacing: 2px;
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: var(--highlight-color);
+        .logo-img {
+            height: 38px;
+            width: auto;
+            display: block;
         }
 
         .nav-links {
@@ -113,13 +107,12 @@
             position: relative;
         }
 
-        .hero h1 {
-            font-size: 3.2rem;
-            font-family: var(--font-en);
-            color: var(--white);
-            font-weight: 900;
-            letter-spacing: 3px;
-            margin-bottom: 15px;
+        .hero-logo {
+            max-width: 320px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
         }
 
         .hero p {
@@ -266,15 +259,17 @@
         }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
             .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Header Navigation -->
     <nav>
-        <a href="#" class="logo">FineEli <span>Lab</span></a>
+        <a href="#" class="logo">
+            <img src="logo.png" alt="FineEli Lab Logo" class="logo-img">
+        </a>
         <ul class="nav-links">
             <li><a href="#archive">ARCHIVE</a></li>
             <li><a href="#about">ABOUT</a></li>
@@ -287,8 +282,9 @@
         </ul>
     </nav>
 
+    <!-- Hero Section -->
     <section class="hero">
-        <h1>FINELLY LAB</h1>
+        <img src="logo.png" alt="FineEli Lab Logo" class="hero-logo">
         <p>시네마틱 연출 및 영상 제작 프로덕션</p>
         <div class="hero-btns">
             <a href="https://www.youtube.com/@FineEliLab_Archive" target="_blank" class="btn btn-yt">
@@ -298,25 +294,29 @@
         </div>
     </section>
 
+    <!-- Archive Section -->
     <section id="archive" class="container">
         <h2 class="section-title">VIDEO ARCHIVE</h2>
-        <p class="section-sub">FINELLY LAB의 공식 작업물 아카이브입니다.</p>
+        <p class="section-sub">FineEli Lab의 공식 작업물 아카이브입니다.</p>
         
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed?listType=playlist&list=UU" title="FINELLY LAB ARCHIVE" allowfullscreen></iframe>
+            <!-- 요청하신 유튜브 영상 (U7LVzhl6kmQ) -->
+            <iframe src="https://www.youtube.com/embed/U7LVzhl6kmQ" title="FineEli Lab Archive Video" allowfullscreen></iframe>
         </div>
     </section>
 
+    <!-- About Section -->
     <section id="about" class="container">
-        <h2 class="section-title">ABOUT FINELLY LAB</h2>
+        <h2 class="section-title">ABOUT FineEli Lab</h2>
         <div class="about-box">
             <p>
-                <strong>FINELLY LAB(파이넬리랩)</strong>은 감각적인 시각 연출과 목적에 최적화된 영상 결과물을 만들어내는 프로덕션입니다.
+                <strong>FineEli Lab</strong>은 감각적인 시각 연출과 목적에 최적화된 영상 결과물을 만들어내는 프로덕션입니다.
                 기획, 촬영, 후반 편집 전반에서 높은 몰입감과 완성도 높은 비주얼을 제공합니다.
             </p>
         </div>
     </section>
 
+    <!-- Contact Section -->
     <section id="contact" class="container contact">
         <h2 class="section-title">CONTACT</h2>
         <p>프로젝트 제작 문의 및 작업 요청은 이메일로 연락주세요.</p>
@@ -334,8 +334,9 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; FINELLY LAB. All rights reserved.</p>
+        <p>&copy; FineEli Lab. All rights reserved.</p>
     </footer>
 
 </body>
