@@ -3,21 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FineEli Lab</title>
+    <title>FineEli Lab | 시네마틱 영상 프로덕션</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;800&family=Montserrat:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        body {
-            background-color: #0b0c10;
-            color: #ffffff;
-            font-family: sans-serif;
-            text-align: center;
-            padding-top: 20vh;
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: #1f2833;
+            --accent-color: #45a29e;
+            --highlight-color: #66fcf1;
+            --text-color: #c5c6c7;
+            --white: #ffffff;
+            --yt-red: #ff0000;
+            --font-kr: 'Noto Sans KR', sans-serif;
+            --font-en: 'Montserrat', sans-serif;
         }
-        h1 { font-size: 2.5rem; margin-bottom: 10px; }
-        p { color: #45a29e; font-size: 1.2rem; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-kr);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            background: rgba(11, 12, 16, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo-img {
+            height: 38px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--highlight-color);
+        }
+
+        .yt-nav-btn {
+            background: rgba(255, 0, 0, 0.15);
+            color: #ff4d4d !important;
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .yt-nav-btn:hover {
+            background: var(--yt-red) !important;
+            color: var(--white) !important;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: radial-gradient(circle at center, #1f2833 0%, #0b0c10 70%);
+            position: relative;
+        }
+
+        .hero-logo {
+            max-width: 320px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--accent-color);
+            max-width: 600px;
+            margin-bottom: 35px;
+            word-break: keep-all;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: linear-gradient(45deg, var(--accent-color), var(--highlight-color));
+            color: var(--bg-color);
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 252, 241, 0.3);
+        }
+
+        .btn-yt {
+            background: #181818;
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-yt:hover {
+            background: var(--yt-red);
+            border-color: var(--yt-red);
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.4);
+        }
+
+        /* Container & Titles */
+        .container {
+            padding: 100px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--white);
+            margin-bottom: 10px;
+            font-family: var(--font-en);
+            letter-spacing: 2px;
+        }
+
+        .section-sub {
+            text-align: center;
+            color: #777;
+            font-size: 0.95rem;
+            margin-bottom: 40px;
+        }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* About Section */
+        .about-box {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.9;
+            background: rgba(31, 40, 51, 0.3);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .about-box p {
+            font-size: 1.05rem;
+            color: var(--text-color);
+            word-break: keep-all;
+        }
+
+        /* Contact Section */
+        .contact {
+            text-align: center;
+            background: #07080a;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+
+        .contact-item i {
+            color: var(--highlight-color);
+            font-size: 1.2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            font-size: 0.85rem;
+            color: #555;
+            background-color: #050507;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+        }
     </style>
 </head>
 <body>
-    <h1>FineEli Lab</h1>
-    <p>시네마틱 영상 프로덕션</p>
+
+    <!-- Header Navigation -->
+    <nav>
+        <a href="#" class="logo">
+            <img src="logo.png" alt="FineEli Lab Logo" class="logo-img">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#archive">ARCHIVE</a></li>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+            <li>
+                <a href="https://www.youtube.com/@FineEliLab_Archive" target="_blank" class="yt-nav-btn">
+                    <i class="fa-brands fa-youtube"></i> YOUTUBE
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="logo.png" alt="FineEli Lab Logo" class="hero-logo">
+        <p>시네마틱 연출 및 영상 제작 프로덕션</p>
+        <div class="hero-btns">
+            <a href="https://www.youtube.com/@FineEliLab_Archive" target="_blank" class="btn btn-yt">
+                <i class="fa-brands fa-youtube"></i> 작업물 아카이브 바로가기
+            </a>
+            <a href="#contact" class="btn">프로젝트 문의</a>
+        </div>
+    </section>
+
+    <!-- Archive Section -->
+    <section id="archive" class="container">
+        <h2 class="section-title">VIDEO ARCHIVE</h2>
+        <p class="section-sub">FineEli Lab의 공식 작업물 아카이브입니다.</p>
+        
+        <div class="video-container">
+            <!-- 유튜브 영상 (U7LVzhl6kmQ) -->
+            <iframe src="https://www.youtube.com/embed/U7LVzhl6kmQ" title="FineEli Lab Archive Video" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="container">
+        <h2 class="section-title">ABOUT FineEli Lab</h2>
+        <div class="about-box">
+            <p>
+                <strong>FineEli Lab</strong>은 감각적인 시각 연출과 목적에 최적화된 영상 결과물을 만들어내는 프로덕션입니다.
+                기획, 촬영, 후반 편집 전반에서 높은 몰입감과 완성도 높은 비주얼을 제공합니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container contact">
+        <h2 class="section-title">CONTACT</h2>
+        <p>프로젝트 제작 문의 및 작업 요청은 이메일로 연락주세요.</p>
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fa-solid fa-envelope"></i>
+                <span>enoch2994@gmail.com</span>
+            </div>
+            <div class="contact-item">
+                <i class="fa-brands fa-youtube" style="color:#ff0000;"></i>
+                <a href="https://www.youtube.com/@FineEliLab_Archive" target="_blank" style="color:#fff; text-decoration:none;">
+                    youtube.com/@FineEliLab_Archive
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; FineEli Lab. All rights reserved.</p>
+    </footer>
+
 </body>
 </html>
