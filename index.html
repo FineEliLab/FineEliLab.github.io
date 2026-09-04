@@ -64,7 +64,7 @@
         .nav-links a:hover { color: var(--brand-orange); }
         .yt-nav-link { display: flex; align-items: center; gap: 6px; color: var(--brand-orange) !important; }
 
-        /* 2. Featured Hero (16:9 무결점 반응형 자동재생 프레임) */
+        /* 2. Featured Hero (16:9 반응형 자동재생 프레임) */
         .featured-hero {
             position: relative; width: 100%; min-height: 100vh; min-height: 100dvh;
             padding-top: 64px; background: #000;
@@ -132,11 +132,13 @@
         .section-title span { color: var(--brand-orange); }
         .section-desc { text-align: center; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 45px; letter-spacing: 0.5px; }
 
-        /* 4. [신규] SELECTED WORKS (2열 포트폴리오 쇼케이스) */
+        /* 4. SELECTED WORKS (2개 전용 그리드 레이아웃) */
         .works-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
+            gap: 28px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         .work-card {
@@ -184,7 +186,7 @@
         }
 
         .work-play-btn {
-            width: 50px; height: 50px; border-radius: 50%;
+            width: 52px; height: 52px; border-radius: 50%;
             background: rgba(255, 69, 0, 0.9);
             display: flex; align-items: center; justify-content: center;
             box-shadow: 0 8px 20px rgba(0,0,0,0.5);
@@ -196,21 +198,21 @@
         .work-card:hover .work-play-btn { transform: scale(1); }
 
         .work-info {
-            padding: 20px 22px;
+            padding: 22px 24px;
             background: var(--bg-surface);
             border-top: 1px solid var(--border-subtle);
         }
 
         .work-category {
             font-family: var(--font-display);
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             letter-spacing: 1.5px;
             color: var(--brand-orange);
             margin-bottom: 4px;
         }
 
         .work-title {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 500;
             color: var(--text-offwhite);
             margin-bottom: 6px;
@@ -222,7 +224,7 @@
             font-weight: 300;
         }
 
-        /* 5. [신규] SERVICES (3단 제작 솔루션) */
+        /* 5. SERVICES */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -296,7 +298,7 @@
         .contact-item a { color: var(--text-offwhite); text-decoration: none; transition: color 0.2s; }
         .contact-item a:hover { color: var(--brand-orange); }
 
-        /* 8. Video Modal (영화관 팝업 플레이어) */
+        /* 8. Video Modal */
         .video-modal {
             position: fixed; inset: 0; z-index: 2000;
             background: rgba(0, 0, 0, 0.92);
@@ -328,7 +330,7 @@
             border-top: 1px solid var(--border-subtle); letter-spacing: 1.5px; font-family: var(--font-display);
         }
 
-        /* Responsive Breakpoints */
+        /* Mobile Breakpoints */
         @media (max-width: 768px) {
             nav { height: 56px; padding: 0 4%; }
             .logo-img { height: 22px; }
@@ -372,7 +374,7 @@
         </ul>
     </nav>
 
-    <!-- 1. Hero Showcase (대표작 자동재생) -->
+    <!-- 1. Featured Hero (대표작 자동재생) -->
     <section class="featured-hero">
         <div class="video-container">
             <iframe
@@ -392,24 +394,21 @@
         </a>
     </section>
 
-    <!-- 2. Tagline -->
+    <!-- 2. Brand Tagline -->
     <section id="brand" class="brand-section">
         <div class="brand-tagline">CINEMATIC FILM PRODUCTION</div>
     </section>
 
-    <!-- ================================================================= -->
-    <!-- 3. [신규] SELECTED WORKS (포트폴리오 4선)                          -->
-    <!-- 💡 수정 방법: 각 카드의 data-video-id와 텍스트를 변경하시면 됩니다.    -->
-    <!-- ================================================================= -->
+    <!-- 3. SELECTED WORKS (정상 닫힘 태그 복구 완료) -->
     <section id="works" class="section">
         <h2 class="section-title">SELECTED <span>WORKS</span></h2>
-        <p class="section-desc">FineEli Lab의 대표 프로젝트 셀렉션입니다. 카드를 클릭하면 영상이 재생됩니다.</p>
+        <p class="section-desc">FineEli Lab의 대표 프로젝트입니다. 카드를 클릭하면 영상이 재생됩니다.</p>
 
         <div class="works-grid">
             <!-- 🎬 [PROJECT 01] -->
             <div class="work-card" data-video-id="GXXxLexqHm8">
                 <div class="work-thumb-wrap">
-                    <img class="work-thumb" src="https://img.youtube.com/vi/OyXnI5UM_ZA/maxresdefault.jpg" alt="Featured Showreel" loading="lazy">
+                    <img class="work-thumb" src="https://img.youtube.com/vi/GXXxLexqHm8/hqdefault.jpg" alt="Selected Work 01" loading="lazy">
                     <div class="work-play-overlay">
                         <div class="work-play-btn">
                             <svg viewBox="0 0 384 512"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
@@ -417,8 +416,8 @@
                     </div>
                 </div>
                 <div class="work-info">
-                    <div class="work-category">SHOWREEL</div>
-                    <div class="work-title">FineEli Lab Official Cinematic Reel</div>
+                    <div class="work-category">COMMERCIAL / NARRATIVE</div>
+                    <div class="work-title">FineEli Lab Featured Project 01</div>
                     <div class="work-role">Directing · Cinematography · Color Grading</div>
                 </div>
             </div>
@@ -426,7 +425,7 @@
             <!-- 🎬 [PROJECT 02] -->
             <div class="work-card" data-video-id="xHOv5GMyI20">
                 <div class="work-thumb-wrap">
-                    <img class="work-thumb" src="https://img.youtube.com/vi/U7LVzhl6kmQ/maxresdefault.jpg" alt="Brand & Commercial Film" loading="lazy">
+                    <img class="work-thumb" src="https://img.youtube.com/vi/xHOv5GMyI20/hqdefault.jpg" alt="Selected Work 02" loading="lazy">
                     <div class="work-play-overlay">
                         <div class="work-play-btn">
                             <svg viewBox="0 0 384 512"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
@@ -434,15 +433,15 @@
                     </div>
                 </div>
                 <div class="work-info">
-                    <div class="work-category">COMMERCIAL / BRAND</div>
-                    <div class="work-title">Cinematic Brand Narrative Film</div>
+                    <div class="work-category">BRAND / SKETCH</div>
+                    <div class="work-title">FineEli Lab Featured Project 02</div>
                     <div class="work-role">Cinematography · Post-Production</div>
                 </div>
             </div>
+        </div>
+    </section>
 
-    <!-- ================================================================= -->
-    <!-- 4. [신규] SERVICES (클라이언트 신뢰를 얻는 3단계 제작 영역)           -->
-    <!-- ================================================================= -->
+    <!-- 4. SERVICES -->
     <section id="services" class="section">
         <h2 class="section-title">OUR <span>SERVICES</span></h2>
         <p class="section-desc">기획부터 최종 마스터링까지 원스톱 시네마틱 파이프라인을 제공합니다.</p>
@@ -475,7 +474,7 @@
     <!-- 5. ABOUT Section -->
     <section id="about" class="section">
         <h2 class="section-title">ABOUT <span>LAB</span></h2>
-        <p class="section-desc"></p>
+        <p class="section-desc">FineEli Lab의 제작 철학과 비전입니다.</p>
 
         <div class="about-card">
             <h3 class="about-headline">CRAFTING THE FINE CINEMA</h3>
@@ -554,7 +553,7 @@
                 muteBtn.classList.toggle('is-unmuted', !isMuted);
             });
 
-            // 포트폴리오 카드 클릭 시 시네마틱 모달 오픈
+            // 포트폴리오 카드 클릭 시 팝업 재생
             var modal = document.getElementById('videoModal');
             var modalIframe = document.getElementById('modalIframe');
             var modalClose = document.getElementById('modalClose');
@@ -566,7 +565,6 @@
                     if (vId) {
                         modalIframe.src = 'https://www.youtube.com/embed/' + vId + '?autoplay=1&rel=0';
                         modal.classList.add('is-active');
-                        // 메인 영상 음소거 유지
                         sendHeroCommand('mute');
                         isMuted = true;
                         muteBtn.classList.remove('is-unmuted');
