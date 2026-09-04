@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FineEli Lab | Cinematic Film Production</title>
     
-    <!-- Google Fonts: Anton (헤드라인) & Noto Sans KR (본문) -->
+    <!-- Google Fonts: Anton & Noto Sans KR -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -15,13 +15,11 @@
     
     <style>
         :root {
-            /* 컬러 톤: 오프화이트 & 블랙 & 오렌지 */
-            --bg-base: #0d0d0e;
+            --bg-base: #0a0a0b;
             --bg-surface: #141416;
             --text-offwhite: #f5f4f0;
             --text-muted: #8e8e93;
             --brand-orange: #ff4500;
-            --brand-orange-hover: #e03d00;
             --border-subtle: rgba(245, 244, 240, 0.08);
             
             --font-display: 'Anton', sans-serif;
@@ -52,8 +50,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 6%;
-            background: rgba(13, 13, 14, 0.9);
+            padding: 16px 5%;
+            background: rgba(10, 10, 11, 0.85);
             backdrop-filter: blur(12px);
             z-index: 1000;
             border-bottom: 1px solid var(--border-subtle);
@@ -66,7 +64,7 @@
         }
 
         .logo-img {
-            height: 34px;
+            height: 32px;
             width: auto;
             display: block;
             object-fit: contain;
@@ -75,7 +73,7 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 32px;
+            gap: 28px;
             align-items: center;
         }
 
@@ -83,9 +81,9 @@
             color: var(--text-muted);
             text-decoration: none;
             font-family: var(--font-display);
-            font-size: 1.05rem;
+            font-size: 1rem;
             letter-spacing: 1.5px;
-            transition: color 0.25s ease;
+            transition: color 0.2s ease;
         }
 
         .nav-links a:hover {
@@ -95,92 +93,118 @@
         .yt-nav-link {
             display: flex;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
             color: var(--brand-orange) !important;
         }
 
-        .yt-nav-link:hover {
-            opacity: 0.85;
-        }
-
-        /* Hero & Featured Film Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 130px 6% 60px 6%;
-            text-align: center;
-        }
-
-        .hero-header {
-            margin-bottom: 30px;
-        }
-
-        .hero-logo-box {
-            display: inline-block;
-            margin-bottom: 18px;
-        }
-
-        .hero-logo {
-            max-width: 240px;
-            width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .hero-subtitle {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            letter-spacing: 3px;
-            color: var(--brand-orange);
-            text-transform: uppercase;
-        }
-
-        /* 16:9 Cinema Container (Autoplay Frame) */
-        .featured-video-wrapper {
+        /* 1. First Screen: Full Width Cinema Video */
+        .featured-hero {
             position: relative;
-            width: 100%;
-            max-width: 1080px;
-            margin: 0 auto;
-            border-radius: 6px;
-            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
             background: #000;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
-            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
-        .video-aspect-ratio {
+        .fullscreen-video-box {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Standard */
-            height: 0;
+            height: 100%;
         }
 
-        .video-aspect-ratio iframe {
+        .fullscreen-video-box iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             border: 0;
+            pointer-events: auto;
         }
 
-        /* Common Section Layout */
+        /* Scroll Down Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-offwhite);
+            text-decoration: none;
+            font-family: var(--font-display);
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+            pointer-events: auto;
+        }
+
+        .scroll-indicator:hover {
+            opacity: 1;
+            color: var(--brand-orange);
+        }
+
+        .scroll-indicator i {
+            animation: bounce 1.8s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(8px); }
+            60% { transform: translateY(4px); }
+        }
+
+        /* 2. Brand Section: Logo & CINEMATIC FILM PRODUCTION */
+        .brand-section {
+            padding: 120px 6% 80px 6%;
+            text-align: center;
+            background: radial-gradient(circle at center, #18181b 0%, var(--bg-base) 70%);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .brand-logo-wrap {
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+
+        .brand-logo {
+            max-width: 280px;
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
+        }
+
+        .brand-tagline {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            letter-spacing: 4px;
+            color: var(--brand-orange);
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        /* Section Layout */
         .section {
-            padding: 110px 6%;
-            max-width: 1080px;
+            padding: 100px 6%;
+            max-width: 960px;
             margin: 0 auto;
         }
 
         .section-title {
             font-family: var(--font-display);
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             letter-spacing: 2px;
             color: var(--text-offwhite);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             text-align: center;
         }
 
@@ -192,7 +216,7 @@
             text-align: center;
             font-size: 0.95rem;
             color: var(--text-muted);
-            margin-bottom: 45px;
+            margin-bottom: 40px;
             letter-spacing: 0.5px;
         }
 
@@ -201,26 +225,26 @@
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
             border-radius: 8px;
-            padding: 48px 40px;
+            padding: 48px 36px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
-        .about-tagline {
+        .about-headline {
             font-family: var(--font-display);
             font-size: 1.6rem;
             color: var(--brand-orange);
             letter-spacing: 1.5px;
-            margin-bottom: 22px;
+            margin-bottom: 20px;
             line-height: 1.3;
         }
 
-        .about-body {
+        .about-content {
             font-size: 1.05rem;
             color: var(--text-offwhite);
             line-height: 1.95;
             word-break: keep-all;
-            max-width: 780px;
+            max-width: 760px;
             margin: 0 auto;
             font-weight: 300;
         }
@@ -230,23 +254,23 @@
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
             border-radius: 8px;
-            padding: 50px 30px;
+            padding: 45px 30px;
             text-align: center;
         }
 
         .contact-list {
             display: flex;
             justify-content: center;
-            gap: 50px;
+            gap: 45px;
             flex-wrap: wrap;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--text-offwhite);
         }
 
@@ -259,7 +283,6 @@
             color: var(--text-offwhite);
             text-decoration: none;
             transition: color 0.2s;
-            font-weight: 400;
         }
 
         .contact-item a:hover {
@@ -269,7 +292,7 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 35px 20px;
+            padding: 30px 20px;
             font-size: 0.85rem;
             color: var(--text-muted);
             border-top: 1px solid var(--border-subtle);
@@ -277,31 +300,29 @@
             font-family: var(--font-display);
         }
 
-        /* Mobile Adaptation */
+        /* Mobile Optimization */
         @media (max-width: 768px) {
             nav {
-                padding: 16px 5%;
+                padding: 14px 5%;
             }
             .nav-links {
-                gap: 18px;
+                gap: 16px;
             }
-            .nav-links a {
-                font-size: 0.95rem;
-            }
-            .hero {
-                padding-top: 100px;
+            .brand-tagline {
+                font-size: 1.6rem;
+                letter-spacing: 2px;
             }
             .about-card {
                 padding: 32px 20px;
             }
-            .about-tagline {
+            .about-headline {
                 font-size: 1.35rem;
             }
-            .about-body {
+            .about-content {
                 font-size: 0.95rem;
             }
             .contact-list {
-                gap: 25px;
+                gap: 20px;
                 flex-direction: column;
                 align-items: center;
             }
@@ -310,14 +331,14 @@
 </head>
 <body>
 
-    <!-- Navigation -->
+    <!-- Header Navigation -->
     <nav>
         <a href="#" class="logo">
             <!-- 새로 업로드할 로고 이미지 파일명 (logo.png) -->
             <img src="logo.png" alt="FineEli Lab Logo" class="logo-img">
         </a>
         <ul class="nav-links">
-            <li><a href="#featured">FEATURED</a></li>
+            <li><a href="#brand">LAB</a></li>
             <li><a href="#about">ABOUT</a></li>
             <li><a href="#contact">CONTACT</a></li>
             <li>
@@ -328,45 +349,49 @@
         </ul>
     </nav>
 
-    <!-- Main Hero: 대표작 자동 재생 쇼케이스 -->
-    <section id="featured" class="hero">
-        <div class="hero-header">
-            <div class="hero-logo-box">
-                <img src="logo.png" alt="FineEli Lab" class="hero-logo">
-            </div>
-            <div class="hero-subtitle">CINEMATIC FILM PRODUCTION</div>
+    <!-- 1. FULL WIDTH FEATURED FILM (접속 시 첫 화면 꽉 찬 영상) -->
+    <!-- ================================================================= -->
+    <!-- 🎬 [대표작 영상 링크 수정 위치]                                     -->
+    <!-- 새로운 유튜브 영상 주소 교체 시:                                    -->
+    <!-- 아래 URL의 'OyXnI5UM_ZA' 2군데를 새 영상 ID로 교체하시면 됩니다.       -->
+    <!-- (autoplay=1&mute=1&playsinline=1 적용으로 PC/모바일 즉시 재생)       -->
+    <!-- ================================================================= -->
+    <section class="featured-hero">
+        <div class="fullscreen-video-box">
+            <iframe 
+                src="https://www.youtube.com/embed/OyXnI5UM_ZA?autoplay=1&mute=1&playsinline=1&loop=1&playlist=OyXnI5UM_ZA&controls=1&rel=0&modestbranding=1" 
+                title="FineEli Lab Featured Video" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+            </iframe>
         </div>
+        <a href="#brand" class="scroll-indicator">
+            <span>EXPLORE</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </a>
+    </section>
+    <!-- ================================================================= -->
 
-        <!-- ================================================================= -->
-        <!-- 🎬 [대표작 영상 수정 위치]                                          -->
-        <!-- PC/모바일 즉시 자동재생 세팅이 완료된 프레임입니다.                   -->
-        <!-- 영상 교체 시: 아래 URL의 'U7LVzhl6kmQ' 2곳을 본인 영상 ID로 변경하세요. -->
-        <!-- ================================================================= -->
-        <div class="featured-video-wrapper">
-            <div class="video-aspect-ratio">
-                <iframe 
-                    src="https://www.youtube.com/watch?v=OyXnI5UM_ZA?autoplay=1&mute=1&playsinline=1&loop=1&playlist=U7LVzhl6kmQ&controls=1&rel=0&modestbranding=1" 
-                    title="FineEli Lab Featured Video" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen>
-                </iframe>
-            </div>
+    <!-- 2. BRAND SECTION: 스크롤 내리면 로고와 문구 등장 -->
+    <section id="brand" class="brand-section">
+        <div class="brand-logo-wrap">
+            <img src="logo.png" alt="FineEli Lab" class="brand-logo">
         </div>
-        <!-- ================================================================= -->
+        <div class="brand-tagline">CINEMATIC FILM PRODUCTION</div>
     </section>
 
-    <!-- ABOUT Section -->
+    <!-- 3. ABOUT SECTION -->
     <section id="about" class="section">
         <h2 class="section-title">ABOUT <span>LAB</span></h2>
         <p class="section-desc">FineEli Lab의 제작 철학과 비전입니다.</p>
 
         <!-- ================================================================= -->
         <!-- 📝 [ABOUT 소개글 수정 위치]                                         -->
-        <!-- 헤드라인 태그라인과 세부 소개글 본문을 직접 수정하실 수 있습니다.     -->
+        <!-- 한 줄 헤드라인과 본문 소개글을 편하게 직접 타이핑해서 수정하세요.       -->
         <!-- ================================================================= -->
         <div class="about-card">
-            <h3 class="about-tagline">VISUALS WITH PRECISION & PASSION</h3>
-            <p class="about-body">
+            <h3 class="about-headline">VISUALS WITH PRECISION & PASSION</h3>
+            <p class="about-content">
                 <strong>FineEli Lab</strong>은 목적에 최적화된 영상 언어와 감각적인 색채 연출을 기반으로 하이엔드 비주얼을 설계하는 프로덕션입니다.
                 기획 단계의 서사적 리듬부터 촬영 현장의 기동성, 그리고 완성도 높은 후반 컬러 그레이딩까지 전 과정에서 몰입감 있는 시네마틱 결과물을 완성합니다.
             </p>
@@ -374,7 +399,7 @@
         <!-- ================================================================= -->
     </section>
 
-    <!-- CONTACT Section -->
+    <!-- 4. CONTACT SECTION -->
     <section id="contact" class="section">
         <h2 class="section-title">GET IN <span>TOUCH</span></h2>
         <p class="section-desc">프로젝트 의뢰 및 협업 문의</p>
