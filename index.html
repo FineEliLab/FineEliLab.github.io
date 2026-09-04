@@ -5,23 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>FineEli Lab | Cinematic Film Production</title>
 
-    <!-- 성능: 실제 접속할 도메인만 미리 연결 -->
+    <!-- Google Fonts & CDN Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://i.ytimg.com">
     <link rel="preconnect" href="https://www.youtube.com">
-
-    <!-- 사용하는 굵기만 로드 (300, 400) -->
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --bg-base: #0a0a0b;
             --bg-surface: #141416;
+            --bg-card: #18181b;
             --text-offwhite: #f5f4f0;
             --text-muted: #8e8e93;
             --brand-orange: #ff4500;
             --border-subtle: rgba(245, 244, 240, 0.08);
+            --border-hover: rgba(255, 69, 0, 0.5);
             --font-display: 'Anton', sans-serif;
             --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
         }
@@ -40,7 +40,7 @@
 
         svg.icon { width: 1em; height: 1em; fill: currentColor; display: inline-block; vertical-align: -0.125em; }
 
-        /* Nav */
+        /* 1. Header Navigation */
         nav {
             position: fixed; top: 0; left: 0; width: 100%; height: 64px;
             display: flex; justify-content: space-between; align-items: center;
@@ -52,7 +52,7 @@
             border-bottom: 1px solid var(--border-subtle);
         }
 
-        .logo { display: flex; align-items: center; text-decoration: none; max-width: 50%; }
+        .logo { display: flex; align-items: center; text-decoration: none; max-width: 45%; }
         .logo-img { height: 28px; max-width: 100%; width: auto; display: block; object-fit: contain; }
 
         .nav-links { display: flex; list-style: none; gap: 24px; align-items: center; }
@@ -64,7 +64,7 @@
         .nav-links a:hover { color: var(--brand-orange); }
         .yt-nav-link { display: flex; align-items: center; gap: 6px; color: var(--brand-orange) !important; }
 
-        /* Hero / Video facade */
+        /* 2. Featured Hero (16:9 무결점 반응형 자동재생 프레임) */
         .featured-hero {
             position: relative; width: 100%; min-height: 100vh; min-height: 100dvh;
             padding-top: 64px; background: #000;
@@ -78,7 +78,6 @@
             display: flex; align-items: center; justify-content: center;
             box-shadow: 0 20px 50px rgba(0,0,0,0.9);
             background: #000;
-            overflow: hidden;
         }
 
         .video-container iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
@@ -86,12 +85,12 @@
         .mute-toggle {
             position: absolute; z-index: 5; bottom: 16px; right: 16px;
             width: 44px; height: 44px; border-radius: 50%; border: none;
-            background: rgba(10, 10, 11, 0.65);
+            background: rgba(10, 10, 11, 0.7);
             backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
             display: flex; align-items: center; justify-content: center;
             cursor: pointer; transition: background 0.2s ease;
         }
-        .mute-toggle:hover { background: rgba(255, 69, 0, 0.85); }
+        .mute-toggle:hover { background: rgba(255, 69, 0, 0.9); }
         .mute-toggle svg { width: 20px; height: 20px; fill: var(--text-offwhite); }
         .mute-toggle .icon-unmute { display: none; }
         .mute-toggle.is-unmuted .icon-mute { display: none; }
@@ -113,27 +112,160 @@
             60% { transform: translateY(3px); }
         }
 
-        /* Brand */
+        /* 3. Brand Tagline */
         .brand-section {
-            padding: 100px 6% 80px 6%; text-align: center;
+            padding: 85px 6% 75px 6%; text-align: center;
             background: radial-gradient(circle at center, #18181b 0%, var(--bg-base) 70%);
             border-bottom: 1px solid var(--border-subtle);
         }
         .brand-tagline {
-            font-family: var(--font-display); font-size: 2.3rem; letter-spacing: 4px;
+            font-family: var(--font-display); font-size: 2.2rem; letter-spacing: 4px;
             color: var(--brand-orange); text-transform: uppercase; line-height: 1.2;
         }
 
-        /* Sections */
-        .section { padding: 95px 6%; max-width: 960px; margin: 0 auto; }
+        /* Common Section Layout */
+        .section { padding: 95px 6%; max-width: 1100px; margin: 0 auto; }
         .section-title {
             font-family: var(--font-display); font-size: 2.2rem; letter-spacing: 2.5px;
             color: var(--text-offwhite); margin-bottom: 6px; text-align: center;
         }
         .section-title span { color: var(--brand-orange); }
-        .section-desc { text-align: center; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 40px; letter-spacing: 0.5px; }
+        .section-desc { text-align: center; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 45px; letter-spacing: 0.5px; }
 
-        /* About */
+        /* 4. [신규] SELECTED WORKS (2열 포트폴리오 쇼케이스) */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .work-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .work-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-hover);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .work-thumb-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .work-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .work-card:hover .work-thumb {
+            transform: scale(1.05);
+        }
+
+        .work-play-overlay {
+            position: absolute; inset: 0;
+            background: rgba(10, 10, 11, 0.45);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+
+        .work-play-btn {
+            width: 50px; height: 50px; border-radius: 50%;
+            background: rgba(255, 69, 0, 0.9);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            transform: scale(0.85); transition: transform 0.3s ease;
+        }
+
+        .work-play-btn svg { width: 18px; height: 18px; fill: #fff; margin-left: 3px; }
+        .work-card:hover .work-play-overlay { opacity: 1; }
+        .work-card:hover .work-play-btn { transform: scale(1); }
+
+        .work-info {
+            padding: 20px 22px;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .work-category {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            color: var(--brand-orange);
+            margin-bottom: 4px;
+        }
+
+        .work-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-offwhite);
+            margin-bottom: 6px;
+        }
+
+        .work-role {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* 5. [신규] SERVICES (3단 제작 솔루션) */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .service-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 36px 26px;
+            transition: border-color 0.25s ease;
+        }
+
+        .service-card:hover {
+            border-color: rgba(255, 69, 0, 0.4);
+        }
+
+        .service-num {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--brand-orange);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .service-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            letter-spacing: 1.5px;
+            color: var(--text-offwhite);
+            margin-bottom: 12px;
+        }
+
+        .service-desc {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            word-break: keep-all;
+            font-weight: 300;
+        }
+
+        /* 6. About Section */
         .about-card {
             background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 8px;
             padding: 50px 38px 42px 38px; text-align: center;
@@ -151,51 +283,84 @@
         .verse-text { font-size: 0.85rem; font-style: italic; color: var(--text-offwhite); letter-spacing: 0.4px; }
         .verse-ref { font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 2.5px; color: var(--brand-orange); }
 
-        /* Contact */
+        /* 7. Contact Section */
         .contact-card { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 45px 30px; text-align: center; }
-        .contact-list { display: flex; justify-content: center; gap: 45px; flex-wrap: wrap; margin-top: 10px; }
+        .contact-guide {
+            font-size: 0.95rem; color: var(--text-offwhite); margin-bottom: 25px; line-height: 1.8;
+            background: rgba(255, 69, 0, 0.08); display: inline-block; padding: 12px 24px; border-radius: 6px;
+            border: 1px solid rgba(255, 69, 0, 0.2); word-break: keep-all;
+        }
+        .contact-list { display: flex; justify-content: center; gap: 45px; flex-wrap: wrap; }
         .contact-item { display: flex; align-items: center; gap: 12px; font-size: 1.05rem; color: var(--text-offwhite); }
         .contact-item svg.icon { color: var(--brand-orange); font-size: 1.25rem; }
         .contact-item a { color: var(--text-offwhite); text-decoration: none; transition: color 0.2s; }
         .contact-item a:hover { color: var(--brand-orange); }
+
+        /* 8. Video Modal (영화관 팝업 플레이어) */
+        .video-modal {
+            position: fixed; inset: 0; z-index: 2000;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            display: none; align-items: center; justify-content: center;
+            padding: 5%;
+        }
+        .video-modal.is-active { display: flex; }
+        .modal-content {
+            position: relative; width: 100%; max-width: 1000px;
+            aspect-ratio: 16 / 9; background: #000;
+            border-radius: 8px; overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+            border: 1px solid var(--border-subtle);
+        }
+        .modal-content iframe { width: 100%; height: 100%; border: 0; }
+        .modal-close {
+            position: absolute; top: -45px; right: 0;
+            background: transparent; border: none;
+            color: var(--text-offwhite); font-size: 2rem; cursor: pointer;
+            display: flex; align-items: center; gap: 6px;
+            font-family: var(--font-display); letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+        .modal-close:hover { color: var(--brand-orange); }
 
         footer {
             text-align: center; padding: 30px 20px; font-size: 0.85rem; color: var(--text-muted);
             border-top: 1px solid var(--border-subtle); letter-spacing: 1.5px; font-family: var(--font-display);
         }
 
+        /* Responsive Breakpoints */
         @media (max-width: 768px) {
             nav { height: 56px; padding: 0 4%; }
             .logo-img { height: 22px; }
             .nav-links { gap: 14px; }
             .nav-links a { font-size: 0.85rem; letter-spacing: 1px; }
-            .featured-hero {
-                padding-top: 56px;
-                min-height: 0;
-                display: block;
-            }
+            .featured-hero { padding-top: 56px; min-height: 0; display: block; }
             .video-container { width: 100%; aspect-ratio: 16 / 9; max-height: none; }
             .scroll-indicator { bottom: 10px; font-size: 0.75rem; }
-            .brand-section { padding: 70px 6% 50px 6%; }
+            .brand-section { padding: 60px 6% 45px 6%; }
             .brand-tagline { font-size: 1.55rem; letter-spacing: 2px; }
             .section { padding: 65px 5%; }
             .section-title { font-size: 1.75rem; }
+            .works-grid { grid-template-columns: 1fr; gap: 20px; }
+            .services-grid { grid-template-columns: 1fr; gap: 16px; }
             .about-card { padding: 32px 18px 26px 18px; }
             .about-headline { font-size: 1.25rem; letter-spacing: 1.5px; }
             .about-content { font-size: 0.92rem; line-height: 1.85; }
-            .verse-text { font-size: 0.78rem; }
             .contact-list { gap: 18px; flex-direction: column; align-items: center; }
+            .modal-close { top: -38px; font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Nav -->
     <nav>
         <a href="#" class="logo">
             <img src="logo.png" alt="FineEli Lab Logo" class="logo-img" width="120" height="28">
         </a>
         <ul class="nav-links">
-            <li><a href="#brand">LAB</a></li>
+            <li><a href="#works">WORKS</a></li>
+            <li><a href="#services">SERVICES</a></li>
             <li><a href="#about">ABOUT</a></li>
             <li><a href="#contact">CONTACT</a></li>
             <li>
@@ -207,7 +372,7 @@
         </ul>
     </nav>
 
-    <!-- 2. 접속 즉시 자동재생 (브라우저 정책상 자동재생은 mute 상태에서만 허용됨) -->
+    <!-- 1. Hero Showcase (대표작 자동재생) -->
     <section class="featured-hero">
         <div class="video-container">
             <iframe
@@ -227,18 +392,131 @@
         </a>
     </section>
 
+    <!-- 2. Tagline -->
     <section id="brand" class="brand-section">
         <div class="brand-tagline">CINEMATIC FILM PRODUCTION</div>
     </section>
 
+    <!-- ================================================================= -->
+    <!-- 3. [신규] SELECTED WORKS (포트폴리오 4선)                          -->
+    <!-- 💡 수정 방법: 각 카드의 data-video-id와 텍스트를 변경하시면 됩니다.    -->
+    <!-- ================================================================= -->
+    <section id="works" class="section">
+        <h2 class="section-title">SELECTED <span>WORKS</span></h2>
+        <p class="section-desc">FineEli Lab의 대표 프로젝트 셀렉션입니다. 카드를 클릭하면 영상이 재생됩니다.</p>
+
+        <div class="works-grid">
+            <!-- 🎬 [PROJECT 01] -->
+            <div class="work-card" data-video-id="OyXnI5UM_ZA">
+                <div class="work-thumb-wrap">
+                    <img class="work-thumb" src="https://img.youtube.com/vi/OyXnI5UM_ZA/maxresdefault.jpg" alt="Featured Showreel" loading="lazy">
+                    <div class="work-play-overlay">
+                        <div class="work-play-btn">
+                            <svg viewBox="0 0 384 512"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-info">
+                    <div class="work-category">SHOWREEL</div>
+                    <div class="work-title">FineEli Lab Official Cinematic Reel</div>
+                    <div class="work-role">Directing · Cinematography · Color Grading</div>
+                </div>
+            </div>
+
+            <!-- 🎬 [PROJECT 02] -->
+            <div class="work-card" data-video-id="U7LVzhl6kmQ">
+                <div class="work-thumb-wrap">
+                    <img class="work-thumb" src="https://img.youtube.com/vi/U7LVzhl6kmQ/maxresdefault.jpg" alt="Brand & Commercial Film" loading="lazy">
+                    <div class="work-play-overlay">
+                        <div class="work-play-btn">
+                            <svg viewBox="0 0 384 512"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-info">
+                    <div class="work-category">COMMERCIAL / BRAND</div>
+                    <div class="work-title">Cinematic Brand Narrative Film</div>
+                    <div class="work-role">Cinematography · Post-Production</div>
+                </div>
+            </div>
+
+            <!-- 🎬 [PROJECT 03] -->
+            <div class="work-card" data-video-id="OyXnI5UM_ZA">
+                <div class="work-thumb-wrap">
+                    <img class="work-thumb" src="https://img.youtube.com/vi/OyXnI5UM_ZA/maxresdefault.jpg" alt="Documentary & Sketch" loading="lazy">
+                    <div class="work-play-overlay">
+                        <div class="work-play-btn">
+                            <svg viewBox="0 0 384 512"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-info">
+                    <div class="work-category">DOCUMENTARY / LIVE</div>
+                    <div class="work-title">Live Performance & Field Sketch</div>
+                    <div class="work-role">Main Camera · Rapid Edit</div>
+                </div>
+            </div>
+
+            <!-- 🎬 [PROJECT 04] -->
+            <div class="work-card" data-video-id="U7LVzhl6kmQ">
+                <div class="work-thumb-wrap">
+                    <img class="work-thumb" src="https://img.youtube.com/vi/U7LVzhl6kmQ/maxresdefault.jpg" alt="Visual Lab Film" loading="lazy">
+                    <div class="work-play-overlay">
+                        <div class="work-play-btn">
+                            <svg viewBox="0 0 384 512"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-info">
+                    <div class="work-category">EXPERIMENTAL / COLOR</div>
+                    <div class="work-title">Atmospheric Color & Motion Study</div>
+                    <div class="work-role">DaVinci Resolve Color Grading</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 4. [신규] SERVICES (클라이언트 신뢰를 얻는 3단계 제작 영역)           -->
+    <!-- ================================================================= -->
+    <section id="services" class="section">
+        <h2 class="section-title">OUR <span>SERVICES</span></h2>
+        <p class="section-desc">기획부터 최종 마스터링까지 원스톱 시네마틱 파이프라인을 제공합니다.</p>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-num">01</div>
+                <div class="service-title">DIRECTING & CONCEPT</div>
+                <p class="service-desc">
+                    브랜드와 인물의 본질을 꿰뚫는 스토리보드 기획, 콘티 구성 및 현장 연출을 총괄합니다. 군더더기 없는 서사 구조로 몰입도를 극대화합니다.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-num">02</div>
+                <div class="service-title">CINEMATOGRAPHY</div>
+                <p class="service-desc">
+                    기교에 기대지 않는 빛(Lighting)과 정교한 광학 설계(Lens & Frame)를 기반으로 현장의 질감과 인물의 감정선을 가장 시네마틱하게 포착합니다.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-num">03</div>
+                <div class="service-title">POST-PRODUCTION</div>
+                <p class="service-desc">
+                    리듬감 있는 컷 편집과 10-bit Log 정밀 컬러 그레이딩(DaVinci Resolve)을 통해 시간이 지나도 품격을 잃지 않는 독보적인 톤앤매너를 완성합니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. ABOUT Section -->
     <section id="about" class="section">
         <h2 class="section-title">ABOUT <span>LAB</span></h2>
-        <p class="section-desc"></p>
+        <p class="section-desc">FineEli Lab의 제작 철학과 비전입니다.</p>
 
         <div class="about-card">
             <h3 class="about-headline">CRAFTING THE FINE CINEMA</h3>
             <p class="about-content">
-                <strong>FineEli Lab</strong>은 이름 그대로 가장 정교하고 완성도 높은(Fine) 비주얼을 연구하는 프로덕션입니다. 화려한 기교나 자극적인 이펙트에 기대기보다, 기획 단계의 단단한 서사와 촬영 현장의 빛·구도라는 기본기에서 영상의 품격이 결정된다고 믿습니다. 불필요한 군더더기를 덜어내고 본질에 집중한 미감으로, 시간이 지나도 깊이를 잃지 않는 시네마틱 결과물을 완성합니다.
+                <strong>FineEli Lab</strong>은 이름 그대로 가장 정교하고 완성도 높은(Fine) 비주얼을 연구하는 프로덕션입니다. 화려한 기교나 자극적인 이펙트에 기대기보다, 기획 단계의 단단한 서사와 촬영 현장의 빛·구도라는 기본기에서 영상의 품격이 결정된다고 믿습니다. 불필요한 군더더기를 덜어내고 본질에 집중한 미감으로, 시간이 지나도 깊이를 잃지 않는 시네마틱 결과물을 완성합니다.[cite: 3]
             </p>
 
             <div class="about-faith-quote">
@@ -248,11 +526,15 @@
         </div>
     </section>
 
+    <!-- 6. CONTACT Section -->
     <section id="contact" class="section">
         <h2 class="section-title">GET IN <span>TOUCH</span></h2>
         <p class="section-desc">프로젝트 의뢰 및 협업 문의</p>
 
         <div class="contact-card">
+            <div class="contact-guide">
+                프로젝트의 <strong>일정, 예산, 원하시는 레퍼런스</strong>를 메일로 함께 남겨주시면 24시간 이내에 검토 후 회신드립니다.
+            </div>
             <div class="contact-list">
                 <div class="contact-item">
                     <svg class="icon" viewBox="0 0 512 512"><path d="M64 112c-8.8 0-16 7.2-16 16v22.1L227.3 313.5c16.9 14.1 41.5 14.1 58.4 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16h384c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 32-94.4 32-132.8 0L48 212.2zM0 128C0 92.7 28.7 64 64 64h384c35.3 0 64 28.7 64 64v256c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z"/></svg>
@@ -266,36 +548,81 @@
         </div>
     </section>
 
+    <!-- 7. Video Cinema Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="modal-content">
+            <button type="button" class="modal-close" id="modalClose" aria-label="닫기">✕ CLOSE</button>
+            <iframe id="modalIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; FINEELI LAB. ALL RIGHTS RESERVED.</p>
+        <p>© FINEELI LAB. ALL RIGHTS RESERVED.</p>
     </footer>
 
     <script>
         (function () {
-            var videoId = 'OyXnI5UM_ZA';
-            var iframe = document.getElementById('heroVideo');
+            // 메인 히어로 비디오 자동재생
+            var heroId = 'OyXnI5UM_ZA';
+            var heroIframe = document.getElementById('heroVideo');
             var origin = encodeURIComponent(window.location.origin);
-            iframe.src = 'https://www.youtube.com/embed/' + videoId +
-                '?autoplay=1&mute=1&playsinline=1&loop=1&playlist=' + videoId +
+            heroIframe.src = 'https://www.youtube.com/embed/' + heroId +
+                '?autoplay=1&mute=1&playsinline=1&loop=1&playlist=' + heroId +
                 '&controls=1&rel=0&modestbranding=1&enablejsapi=1&origin=' + origin;
 
-            var btn = document.getElementById('muteToggle');
-            var muted = true;
+            var muteBtn = document.getElementById('muteToggle');
+            var isMuted = true;
 
-            function sendCommand(func) {
-                iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: func, args: [] }), '*');
+            function sendHeroCommand(func) {
+                heroIframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: func, args: [] }), '*');
             }
 
-            btn.addEventListener('click', function () {
-                if (muted) {
-                    sendCommand('unMute');
-                    btn.setAttribute('aria-label', '음소거');
+            muteBtn.addEventListener('click', function () {
+                if (isMuted) {
+                    sendHeroCommand('unMute');
+                    muteBtn.setAttribute('aria-label', '음소거');
                 } else {
-                    sendCommand('mute');
-                    btn.setAttribute('aria-label', '소리 켜기');
+                    sendHeroCommand('mute');
+                    muteBtn.setAttribute('aria-label', '소리 켜기');
                 }
-                muted = !muted;
-                btn.classList.toggle('is-unmuted', !muted);
+                isMuted = !isMuted;
+                muteBtn.classList.toggle('is-unmuted', !isMuted);
+            });
+
+            // 포트폴리오 카드 클릭 시 시네마틱 모달 오픈
+            var modal = document.getElementById('videoModal');
+            var modalIframe = document.getElementById('modalIframe');
+            var modalClose = document.getElementById('modalClose');
+            var cards = document.querySelectorAll('.work-card');
+
+            cards.forEach(function (card) {
+                card.addEventListener('click', function () {
+                    var vId = this.getAttribute('data-video-id');
+                    if (vId) {
+                        modalIframe.src = 'https://www.youtube.com/embed/' + vId + '?autoplay=1&rel=0';
+                        modal.classList.add('is-active');
+                        // 메인 영상 음소거 유지
+                        sendHeroCommand('mute');
+                        isMuted = true;
+                        muteBtn.classList.remove('is-unmuted');
+                    }
+                });
+            });
+
+            function closeModal() {
+                modal.classList.remove('is-active');
+                modalIframe.src = '';
+            }
+
+            modalClose.addEventListener('click', closeModal);
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) closeModal();
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && modal.classList.contains('is-active')) {
+                    closeModal();
+                }
             });
         })();
     </script>
