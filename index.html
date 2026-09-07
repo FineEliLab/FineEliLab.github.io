@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>FineEli Lab | Cinematic Film Production</title>
 
+  <!-- [핵심 수정 1] 브라우저가 렌더링을 시작하기 전에 스크롤 복원 차단 및 최상단 고정 -->
+  <script>
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+    if (window.location.hash) {
+      history.replaceState(null, null, window.location.pathname);
+    }
+  </script>
+
   <!-- Google Fonts & CDN Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,10 +37,14 @@
       --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
+    /* [핵심 수정 2] * 대신 html에만 smooth 적용하여 초기 로드 스크롤 간섭 방지 */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+
+    html {
       scroll-behavior: smooth;
     }
 
@@ -111,7 +126,7 @@
       color: var(--brand-orange) !important;
     }
 
-    /* 2. Featured Hero (16:9 반응형 자동재생 프레임) */
+    /* 2. Featured Hero (16:9 무결점 반응형 프레임) */
     .featured-hero {
       position: relative;
       width: 100%;
@@ -266,7 +281,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* 4. SELECTED WORKS (2개 전용 그리드 레이아웃) */
+    /* 4. SELECTED WORKS */
     .works-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -562,12 +577,6 @@
       border: 1px solid var(--border-subtle);
     }
 
-    .modal-content iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
     .modal-close {
       position: absolute;
       top: -45px;
@@ -748,7 +757,7 @@
     <div class="about-card">
       <h3 class="about-headline">CRAFTING THE FINE CINEMA</h3>
       <p class="about-content">
-        <strong>FineEli Lab</strong>은 이름 그대로 가장 정교하고 완성도 높은(Fine) 비주얼을 연구하는 프로덕션입니다. 화려한 기교나 자극적인 이펙트에 기대기보다, 기획 단계의 단단한 서사와 촬영 현장의 빛·구도라는 기본기에서 영상의 품격이 결정된다고 믿습니다. 불필요한 군더더기를 덜어내고 본질에 집중한 미감으로, 시간이 지나도 깊이를 잃지 않는 시네마틱 결과물을 완성합니다.
+        <strong>FineEli Lab</strong>은 이름 그대로 가장 정교하고 완성도 높은(Fine) 비주얼을 연구하는 프로덕션입니다. 화려한 기교나 자극적인 이펙트에 기대기보다, 기획 단계의 단단한 서사와 촬영 현장의 빛·구도라는 기본기에서 영상의 품격이 결정된다고 믿습니다. 불필요한 군더더기를 덜어내고 본질에 집중한 미감으로, 시간이 지나도 깊이를 잃지 않는 시네마틱 결과물을 완성합니다.[cite: 3]
       </p>
 
       <div class="about-faith-quote">
@@ -780,11 +789,12 @@
     </div>
   </section>
 
+  <!-- [핵심 수정 3] 모달에 빈 iframe을 미리 두지 않고 필요할 때만 주입하여 하단 포커스 강탈 원천 차단 -->
   <!-- 7. Video Cinema Modal -->
   <div class="video-modal" id="videoModal">
     <div class="modal-content">
       <button type="button" class="modal-close" id="modalClose" aria-label="닫기">✕ CLOSE</button>
-      <iframe id="modalIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <div id="modalIframeContainer" style="width: 100%; height: 100%;"></div>
     </div>
   </div>
 
@@ -794,23 +804,13 @@
   </footer>
 
   <script>
-    // 브라우저의 스크롤 위치 자동 복원 기능을 끄고, 로드 시 항상 맨 위로 고정
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
-    }
-    window.scrollTo(0, 0);
-    window.addEventListener('load', function () {
-      window.scrollTo(0, 0);
-    });
-
     (function () {
       // 메인 히어로 비디오 자동재생
       var heroId = 'OyXnI5UM_ZA';
       var heroIframe = document.getElementById('heroVideo');
-      var origin = encodeURIComponent(window.location.origin);
       heroIframe.src = 'https://www.youtube.com/embed/' + heroId +
         '?autoplay=1&mute=1&playsinline=1&loop=1&playlist=' + heroId +
-        '&controls=1&rel=0&modestbranding=1&enablejsapi=1&origin=' + origin;
+        '&controls=1&rel=0&modestbranding=1&enablejsapi=1';
 
       var muteBtn = document.getElementById('muteToggle');
       var isMuted = true;
@@ -831,9 +831,9 @@
         muteBtn.classList.toggle('is-unmuted', !isMuted);
       });
 
-      // 포트폴리오 카드 클릭 시 팝업 재생
+      // 포트폴리오 카드 클릭 시 팝업 재생 (클릭 시점에만 iframe 생성)
       var modal = document.getElementById('videoModal');
-      var modalIframe = document.getElementById('modalIframe');
+      var modalContainer = document.getElementById('modalIframeContainer');
       var modalClose = document.getElementById('modalClose');
       var cards = document.querySelectorAll('.work-card');
 
@@ -841,7 +841,7 @@
         card.addEventListener('click', function () {
           var vId = this.getAttribute('data-video-id');
           if (vId) {
-            modalIframe.src = 'https://www.youtube.com/embed/' + vId + '?autoplay=1&rel=0';
+            modalContainer.innerHTML = '<iframe src="https://www.youtube.com/embed/' + vId + '?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: 100%; height: 100%; border: 0;"></iframe>';
             modal.classList.add('is-active');
             sendHeroCommand('mute');
             isMuted = true;
@@ -852,7 +852,7 @@
 
       function closeModal() {
         modal.classList.remove('is-active');
-        modalIframe.src = '';
+        modalContainer.innerHTML = '';
       }
 
       modalClose.addEventListener('click', closeModal);
